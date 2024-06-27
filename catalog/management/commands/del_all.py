@@ -12,7 +12,6 @@ class Command(BaseCommand):
             return json.load(f)
 
     def handle(self, *args, **options):
-
         # Удалите все продукты
         Product.objects.all().delete()
         # Удалите все категории
