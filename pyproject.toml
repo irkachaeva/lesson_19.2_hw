@@ -12,7 +12,11 @@ django = "^5.0.6"
 pillow = "^10.3.0"
 black = "^24.4.2"
 ipython = "^8.25.0"
+postgres = "^4.0"
 
+
+[tool.poetry.group.dev.dependencies]
+tox = "^4.15.1"
 
 [build-system]
 requires = ["poetry-core"]
