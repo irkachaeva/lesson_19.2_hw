@@ -8,8 +8,8 @@ class Command(BaseCommand):
     @staticmethod
     def json_read():
         #Получаем данные из фикстур с категориями
-        with open("catalog.json") as f:
-            return json.load(f)
+        with open("catalog.json", encoding='utf-8') as f:
+            return json.dumps(f, indent=4)
 
     def handle(self, *args, **options):
         # Удалите все продукты

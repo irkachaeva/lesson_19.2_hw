@@ -5,8 +5,8 @@ from catalog.models import Product
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'category')
-    list_filter = ('category',)
+    list_display = ('id', 'title')
+    list_filter = ('title',)
 
 
 @admin.register(Product)
