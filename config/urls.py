@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from config import settings
 from django.conf.urls.static import static
+from catalog.views import product_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
