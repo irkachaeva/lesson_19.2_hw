@@ -1,11 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load my_tags %}
 
-</head>
-<body>
 
-</body>
-</html>
+<div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3 d-flex justify-content-center align-items-center">
+           <img src ='{{ blog.image | media_filter }}' class="img-fluid">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2>{{ object.title }} ({{ object.slug }})</h2>
+            <p class="card-text">Содержание: {{ object.body }}</p>
+            <p class="card-text">Дата создания: {{ object.created_at }} </p>
+            <p class="card-text">Просмотры: {{ object.views_count }} </p>
+            <a class="btn btn-primary" href="{%url 'blog:list'%}" role="button">Вернуться в блог</a>
+
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}

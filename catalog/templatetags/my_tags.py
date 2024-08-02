@@ -7,4 +7,4 @@ register = template.Library()
 def media_filter(path):
     if path:
         return f"/images/{path}"
-    return '#'
+    return 'Ошибка'

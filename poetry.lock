@@ -625,6 +625,16 @@ docs = ["furo (>=2024.5.6)", "sphinx-autodoc-typehints (>=2.2.1)"]
 testing = ["covdefaults (>=2.3)", "pytest (>=8.2.2)", "pytest-cov (>=5)", "pytest-mock (>=3.14)", "setuptools (>=70.1)"]
 
 [[package]]
+name = "pytils"
+version = "0.4.1"
+description = "Russian-specific string utils"
+optional = false
+python-versions = "^3.7"
+files = [
+    {file = "pytils-0.4.1.tar.gz", hash = "sha256:aa109b1bc0ec4bdb7c9768520110348d8aeb0706600e6cf641272e6850e26eab"},
+]
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -755,4 +765,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "46768e4efc4c4b3cbbe2f8d063c697d6148685452b82000680495f18c92579ef"
+content-hash = "e2d49046056144704949d7379a408f643bed7e4ff5487dcd51c0fa315be544b8"
