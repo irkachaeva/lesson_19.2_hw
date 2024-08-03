@@ -2,7 +2,7 @@ from blog.models import Blog
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView, CreateView, TemplateView
 from pytils.translit import slugify
-
+from django.shortcuts import redirect, get_object_or_404
 
 class BlogListView(ListView):
     model = Blog
@@ -19,7 +19,7 @@ class BlogCreateView(CreateView):
     fields = 'title', 'body', 'image'
     success_url = reverse_lazy('blog:list')
 
-    def form_valid(self, form):
+    def form_valid(self, form): #Формирование динамического слага для каждого объекта
         if form.is_valid():
             new_blog = form.save()
             new_blog.slug = slugify(new_blog.title)
@@ -52,4 +52,12 @@ class BlogDeleteView(DeleteView):
     success_url = reverse_lazy('blog:list')  # Адрес для перенаправления после успешного удаления
 
 
+def published_status(request, pk):
+    blog_item = get_object_or_404(Blog, pk=pk)
+    if blog_item.is_published:
+        blog_item.is_published = False
+    else:
+        blog_item.is_published = True
+    blog_item.save()
 
+    return redirect(reverse('blog:list'))
