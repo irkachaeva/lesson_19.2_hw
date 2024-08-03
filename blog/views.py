@@ -17,7 +17,7 @@ class BlogListView(ListView):
 class BlogCreateView(CreateView):
     model = Blog
     fields = 'title', 'body', 'image'
-    success_url = reverse_lazy('blog:view')
+    success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -49,7 +49,7 @@ class BlogUpdateView(UpdateView):
 
 class BlogDeleteView(DeleteView):
     model = Blog
-    success_url = reverse_lazy('blog:view')  # Адрес для перенаправления после успешного удаления
+    success_url = reverse_lazy('blog:list')  # Адрес для перенаправления после успешного удаления
 
 
 
