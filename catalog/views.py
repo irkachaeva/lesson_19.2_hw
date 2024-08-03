@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
 from django.views.generic import ListView, DetailView, TemplateView
-
+from django.urls import reverse_lazy, reverse
 
 class ProductListView(ListView):
     model = Product # Модель
@@ -13,6 +13,7 @@ class ProductDetailView(DetailView):
 
 class ContactsView(TemplateView):
     template_name = 'contacts.html'
+
 
 
 
