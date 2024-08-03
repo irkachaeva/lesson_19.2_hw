@@ -1,0 +1,41 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2024-06-26T22:47:14.499Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Samsung S8",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$C4WT58PD2l8kr8K46Vz58E$C61bJfqWnDa1AkB4BeM9dX+eoA/IfXMiA05cQ1XKlRw=",
+    "last_login": "2024-06-26T21:51:15.047Z",
+    "is_superuser": true,
+    "username": "ikachaeva",
+    "first_name": "",
+    "last_name": "",
+    "email": "irenkachaeva@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-06-26T21:47:25.897Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "esnwlv47kk8bgnbbssp01pnjjsb0yne5",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBghoIu3fcMBIZRqgaS0q6Md7dNutDte-__twhxXUpYO89hyuIitDj9shTpyXUX-RHrvUlqdZmnJPdEHrbLsWV-XY_276DEXrY1ZhwSuQiUyWgF4AdyNiI6cDYhbNDfyGtvmLVli5BIqbNjNpSMQfH5AtOBN2A:1sMaXr:ImWApwfevrgVOFaBURLCcWaE46XbS97L0EWHtv35y64",
+    "expire_date": "2024-07-10T21:51:15.057Z"
+  }
+}
+]
