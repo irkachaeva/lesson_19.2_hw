@@ -132,5 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MEDIA_URL = '/images/'
 # MEDIA_ROOT: Path = os.path.join(BASE_DIR /'images'
 
-MEDIA_URL = "/images/"
-MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL[1:])
+# MEDIA_URL = "/images/"
+# MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL[1:])
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
