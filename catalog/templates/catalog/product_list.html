@@ -2,33 +2,40 @@
 {% block content %}
 {% load my_tags %}
 
+<div class="ms-4">
+  <a class="p-2 btn btn btn-success" href="{% url 'catalog:create_product' %}" >Добавить продукт</a>
+</div>
 
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for product in object_list %}
-              <div class="col">
-              <div class="card shadow-sm">
-              <img src ='{{ product.image | media_filter }}' class="img-fluid">
-                <div class="card-body">
-                  <p class="card-text">Наименование: {{ product.name }}</p>
-                  <p class="card-text">Категория товара: {{ product.category }}</p>
-                  <p class="card-text">Цена товара: {{ product.price }} ₽ </p>
-                  <p class="card-text">Описание: {{ product.description|truncatewords:20|truncatechars:100 }}</p>
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                      <img src ='{{ product.image | media_filter }}' class="img-fluid">
+                        <div class="card-body">
+                          <p class="card-text">Наименование: {{ product.name }}</p>
+                          <p class="card-text">Категория товара: {{ product.category }}</p>
+                          <p class="card-text">Цена товара: {{ product.price }} ₽ </p>
+                          <p class="card-text">Описание: {{ product.description|truncatewords:20|truncatechars:100 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" >
+                                    <a href="{%url 'catalog:product_detail' product.pk %}" class="btn btn-outline-primary">Просмотр</a>
 
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-primary" href="{%url 'catalog:product_detail' product.pk %}" role="button">Подробнее</a>
+                                    <input type="radio" class="btn-check" >
+                                    <a href="{%url 'catalog:update_product' product.pk %}" class="btn btn-outline-primary">Редактировать</a>
+
+                                    <input type="radio" class="btn-check" >
+                                    <a class="btn btn-outline-primary">Удалить</a>
+                              </div>
+                            </div>
+                        </div>
                     </div>
-                    <small class="text-body-secondary">9 mins</small>
-                  </div>
                 </div>
-              </div>
-            </div>
             {%endfor%}
-          </div>
-
+        </div>
     </div>
-  </div>
+</div>
 
 {% endblock %}
