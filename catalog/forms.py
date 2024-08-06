@@ -1,20 +1,31 @@
 from django import forms
-from catalog.models import Product
+from django.forms import ModelForm, BooleanField, forms
+from catalog.models import Product, Version
 
 stop_text = "казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар"
 stop_words = set(stop_text.split(", "))
 
 
-class ProductForm(forms.ModelForm):
+class StyleFormMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            if isinstance(field, BooleanField):
+                field.widget.attrs["class"] = "form-check-input"
+            else:
+                field.widget.attrs["class"] = "form-control"
+
+
+class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
-        #Поля можно указать одним из способов:
+        fields = 'category', 'name', 'description', 'image', 'price', 'manufactured_at' #1
+        #exclude = 'created_at', 'updated_at'#2
+        #fields = '__all__' #3
+        # Поля можно указать одним из способов:
         # 1 - указать поля для вывода;
         # 2- указать все доступные поля;
         # 3 - указать поля, которые не нужно выводить
-        fields = 'category', 'name', 'description', 'image', 'price', 'manufactured_at'
-        #exclude = 'created_at', 'updated_at'
-        #fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,3 +45,15 @@ class ProductForm(forms.ModelForm):
         if words.intersection(stop_words):
             raise forms.ValidationError('Ошибка, связанная с описанием продукта')
         return cleaned_data
+
+
+class VersionForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Version
+        fields = '__all__'
+
+
+class ProductModeratorForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = ('description', 'name', 'is_published')

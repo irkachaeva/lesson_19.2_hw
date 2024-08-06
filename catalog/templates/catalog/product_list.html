@@ -18,6 +18,13 @@
                           <p class="card-text">Категория товара: {{ product.category }}</p>
                           <p class="card-text">Цена товара: {{ product.price }} ₽ </p>
                           <p class="card-text">Описание: {{ product.description|truncatewords:20|truncatechars:100 }}</p>
+                            {% for version in product.versions.all %}
+                            {% if version.is_version_active %}
+                            <p>Версия: {{version.version_name}} ({{version.version_number}}) </p>
+                            {%else%}
+                            <p>Версия: Версия не активна </p>
+                            {% endif %}
+                            {% endfor %}
                             <div class="d-flex justify-content-between align-items-center">
                               <div class="btn-group" role="group">
                                     <input type="radio" class="btn-check" >
