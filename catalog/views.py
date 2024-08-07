@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Product, Version
-from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from django.core.exceptions import PermissionDenied
@@ -51,6 +51,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('catalog:product_list')  # Адрес для перенаправления после успешного удаления
 
 
 # def contacts(request):

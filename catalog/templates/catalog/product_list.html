@@ -34,7 +34,7 @@
                                     <a href="{%url 'catalog:update_product' product.pk %}" class="btn btn-outline-primary">Редактировать</a>
 
                                     <input type="radio" class="btn-check" >
-                                    <a class="btn btn-outline-primary">Удалить</a>
+                                    <a href="{% url 'catalog:delete' product.pk %}" class="btn btn-outline-primary">Удалить</a>
                               </div>
                             </div>
                         </div>

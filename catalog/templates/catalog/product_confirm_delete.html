@@ -1,0 +1,17 @@
+{% extends 'catalog/home.html' %}
+{% block content %}
+
+
+<div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <form method="post" action="" class="form-floating">
+               {% csrf_token %}
+               <p>Хотите удалить продукт "{{object.name}}"?</p>
+               <button type="submit" class="btn btn-success">Подтвердить</button>
+               <a href="{%url 'catalog:product_list'%}" role="button" class="btn btn-warning">Отменить</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
