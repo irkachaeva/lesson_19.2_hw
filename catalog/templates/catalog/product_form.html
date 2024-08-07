@@ -1,6 +1,7 @@
 {% extends 'catalog/home.html' %}
 {% block content %}
 
+
 <div class="container">
     <form class="row" method="post" enctype="multipart/form-data">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -24,6 +25,7 @@
                                 Создать
                                 {% endif %}
                            </button>
+                        <a class="btn btn" href="{%url 'catalog:product_list'%}" role="button">Вернуться на главную</a>
                     </div>
             </div>
         </div>
