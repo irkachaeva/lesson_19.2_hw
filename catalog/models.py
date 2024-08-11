@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import User
 
 class Category(models.Model):
     title = models.CharField(
@@ -60,6 +60,9 @@ class Product(models.Model):
         default=False,
         verbose_name="Опубликовано",
         help_text="Опубликовать",
+    )
+    creator = models.ForeignKey(
+        User, verbose_name="Создатель продукта", null=True, on_delete=models.SET_NULL
     )
 
     class Meta:

@@ -7,11 +7,12 @@ from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ProductListView(ListView):
+
+class ProductListView(ListView, LoginRequiredMixin):
     model = Product # Модель
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(DetailView, LoginRequiredMixin):
     model = Product
 
 
@@ -19,10 +20,17 @@ class ContactsView(TemplateView):
     template_name = 'contacts.html'
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
+
+    def form_valid(self, form):
+        product = form.save()
+        user = self.request.user
+        product.creator = user
+        product.save()
+        return super().form_valid(form)
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
