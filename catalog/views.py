@@ -8,22 +8,26 @@ from django.forms import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ProductListView(ListView, LoginRequiredMixin):
+class ProductListView(ListView):
     model = Product # Модель
 
 
-class ProductDetailView(DetailView, LoginRequiredMixin):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
 
 class ContactsView(TemplateView):
     template_name = 'contacts.html'
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
         product = form.save()
@@ -37,6 +41,8 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -59,10 +65,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')  # Адрес для перенаправления после успешного удаления
-
+    login_url = 'users:login'
+    redirect_field_name = 'redirect_to'
 
 # def contacts(request):
 #     return render(request, 'contacts.html')

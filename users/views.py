@@ -52,11 +52,16 @@ def email_verification(request, token):
 def reset_password(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        user = get_object_or_404(User, email=email)
-        characters = string.ascii_letters + string.digits + string.punctuation
-        password = ''.join(random.choice(characters) for _ in range(10))
-        user.set_password(password)
-        user.save()
+        try:
+            user = get_object_or_404(User, email=email)
+            characters = string.ascii_letters + string.digits + string.punctuation
+            password = ''.join(random.choice(characters) for _ in range(10))
+            user.set_password(password)
+            user.save()
+        except User.DoesNotExist:
+            # Обработка ситуации, когда пользователь с таким email-адресом не найден
+            return render(request, 'users/reset_password.html', {'error': 'Пользователь с таким email-адресом не найден'})
+
 
         send_mail(
             subject='Восстановление пароля',

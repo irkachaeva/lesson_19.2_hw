@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from config import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('', include('catalog.urls', namespace='catalog')),
     path('blog/', include('blog.urls', namespace='blog')),
     path('users/', include('users.urls', namespace='users')),
+
     ]
 
 if settings.DEBUG:
