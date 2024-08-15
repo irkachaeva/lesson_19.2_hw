@@ -5,7 +5,7 @@ from django.urls import reverse_lazy, reverse
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class ProductListView(ListView):
@@ -14,8 +14,6 @@ class ProductListView(ListView):
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
-    login_url = 'users:login'
-    redirect_field_name = 'redirect_to'
 
 
 class ContactsView(TemplateView):
@@ -26,8 +24,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
-    login_url = 'users:login'
-    redirect_field_name = 'redirect_to'
 
     def form_valid(self, form):
         product = form.save()
@@ -37,12 +33,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
-    login_url = 'users:login'
-    redirect_field_name = 'redirect_to'
+    permission_required = 'catalog.change_product'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -64,12 +59,21 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        if user.has_perms(["catalog.can_edit_is_published",
+                           "catalog.can_edit_description",
+                           "catalog.can_edit_category"]):
+            return ProductModeratorForm
+        raise PermissionDenied
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')  # Адрес для перенаправления после успешного удаления
-    login_url = 'users:login'
-    redirect_field_name = 'redirect_to'
+
 
 # def contacts(request):
 #     return render(request, 'contacts.html')
