@@ -6,11 +6,14 @@ from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from catalog.services import get_products_from_cache
 
 
 class ProductListView(ListView):
     model = Product # Модель
 
+    def get_queryset(self):
+        return get_products_from_cache()
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
